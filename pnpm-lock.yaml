@@ -4,8 +4,8 @@ importers:
 
   .:
     specifiers:
-      '@asdata-ui/components': workspace:^1.0.0
-      '@asdata-ui/utils': workspace:^1.0.0
+      '@ahsdata-ui/components': workspace:^1.0.0
+      '@ahsdata-ui/utils': workspace:^1.0.0
       '@types/gulp': ^4.0.10
       '@types/gulp-autoprefixer': ^0.0.33
       '@types/gulp-sass': ^5.0.0
@@ -30,8 +30,8 @@ importers:
       vite-plugin-dts: ^2.1.0
       vue: ^3.2.47
     dependencies:
-      '@asdata-ui/components': link:packages/components
-      '@asdata-ui/utils': link:packages/utils
+      '@ahsdata-ui/components': link:packages/components
+      '@ahsdata-ui/utils': link:packages/utils
     devDependencies:
       '@types/gulp': 4.0.10
       '@types/gulp-autoprefixer': 0.0.33
@@ -59,15 +59,18 @@ importers:
 
   packages/asdata-ui:
     specifiers:
-      '@asdata-ui/utils': workspace:^1.0.2
+      '@ahsdata-ui/utils': workspace:^1.0.0
     dependencies:
-      '@asdata-ui/utils': link:../utils
+      '@ahsdata-ui/utils': link:../utils
 
   packages/components:
     specifiers:
-      '@asdata-ui/utils': workspace:^1.0.2
+      '@ahsdata-ui/utils': workspace:^1.0.0
     dependencies:
-      '@asdata-ui/utils': link:../utils
+      '@ahsdata-ui/utils': link:../utils
+
+  packages/utils:
+    specifiers: {}
 
   play:
     specifiers:
@@ -893,7 +896,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.1.4_tbu6ibuzbmq2zng52hwcifltki
+      vite: 4.1.4
       vue: 3.2.47
     dev: true
 

@@ -8,7 +8,7 @@ export default defineConfig({
         //minify: false,
         rollupOptions: {
             //忽略打包vue文件
-            external: ['vue', /\.scss/, '@asdata-ui/utils'],
+            external: ['vue', /\.scss/, '@ahsdata-ui/utils'],
             input: ['index.ts'],
             output: [
                 {
@@ -20,7 +20,7 @@ export default defineConfig({
                     preserveModules: true,
                     exports: 'named',
                     //配置打包根目录
-                    dir: '../asdata-ui/es'
+                    dir: '../ahsdata-ui/es'
                 },
                 {
                     //打包格式
@@ -31,20 +31,20 @@ export default defineConfig({
                     preserveModules: true,
                     exports: 'named',
                     //配置打包根目录
-                    dir: '../asdata-ui/lib'
+                    dir: '../ahsdata-ui/lib'
                 }
             ]
         },
         lib: {
             entry: './index.ts',
-            name: 'asdata-ui'
+            name: 'ahsdata-ui'
         }
     },
     plugins: [
         vue(),
         dts({
             entryRoot: 'src',
-            outputDir: ['../asdata-ui/es/src', '../asdata-ui/lib/src'],
+            outputDir: ['../ahsdata-ui/es/src', '../ahsdata-ui/lib/src'],
             //指定使用的tsconfig.json为我们整个项目根目录下,如果不配置,你也可以在components下新建tsconfig.json
             tsConfigFilePath: '../../tsconfig.json'
         }),

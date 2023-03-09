@@ -1,5 +1,5 @@
 {
-  "name": "asdata-ui",
+  "name": "ahsdata-ui",
   "version": "1.0.0",
   "main": "lib/index.js",
   "module": "es/index.mjs",
@@ -8,7 +8,7 @@
     "lib"
   ],
   "keywords": [
-    "asdata-ui",
+    "ahsdata-ui",
     "vue3组件库"
   ],
   "sideEffects": [
@@ -22,6 +22,6 @@
   },
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "@asdata-ui/utils": "workspace:^1.0.0"
+    "@ahsdata-ui/utils": "workspace:^1.0.0"
   }
 }

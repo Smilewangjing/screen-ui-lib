@@ -2,6 +2,6 @@ import { createApp } from 'vue';
 import './style.css';
 import App from './App.vue';
 
-import screenUI from '@asdata-ui/components';
+import screenUI from '@ahsdata-ui/components';
 
 createApp(App).use(screenUI).mount('#app');
