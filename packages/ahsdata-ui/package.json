@@ -22,6 +22,6 @@
   },
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "@ahsdata-ui/utils": "workspace:^1.0.0"
+    "@ahsdata-ui/utils": "workspace:^1.0.5"
   }
 }
