@@ -20,5 +20,8 @@
   "scripts": {
     "release": "release-it"
   },
-  "typings": "lib/index.d.ts"
+  "typings": "lib/index.d.ts",
+  "dependencies": {
+    "@asdata-ui/utils": "workspace:^1.0.0"
+  }
 }

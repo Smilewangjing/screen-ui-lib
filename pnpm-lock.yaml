@@ -4,8 +4,8 @@ importers:
 
   .:
     specifiers:
-      '@screen-ui-lib/components': workspace:^1.0.0
-      '@screen-ui-lib/utils': workspace:^1.0.0
+      '@asdata-ui/components': workspace:^1.0.0
+      '@asdata-ui/utils': workspace:^1.0.0
       '@types/gulp': ^4.0.10
       '@types/gulp-autoprefixer': ^0.0.33
       '@types/gulp-sass': ^5.0.0
@@ -30,8 +30,8 @@ importers:
       vite-plugin-dts: ^2.1.0
       vue: ^3.2.47
     dependencies:
-      '@screen-ui-lib/components': link:packages/components
-      '@screen-ui-lib/utils': link:packages/utils
+      '@asdata-ui/components': link:packages/components
+      '@asdata-ui/utils': link:packages/utils
     devDependencies:
       '@types/gulp': 4.0.10
       '@types/gulp-autoprefixer': 0.0.33
@@ -56,6 +56,12 @@ importers:
       vite: 4.1.4_tbu6ibuzbmq2zng52hwcifltki
       vite-plugin-dts: 2.1.0_pakyy5w5azqvyjtjjomilajlpy
       vue: 3.2.47
+
+  packages/asdata-ui:
+    specifiers:
+      '@asdata-ui/utils': workspace:^1.0.0
+    dependencies:
+      '@asdata-ui/utils': link:../utils
 
   packages/components:
     specifiers:
