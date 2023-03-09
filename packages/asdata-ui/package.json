@@ -1,5 +1,5 @@
 {
-  "name": "screen-ui",
+  "name": "asdata-ui",
   "version": "1.0.0",
   "main": "lib/index.js",
   "module": "es/index.mjs",
@@ -8,7 +8,7 @@
     "lib"
   ],
   "keywords": [
-    "easyest",
+    "asdata-ui",
     "vue3组件库"
   ],
   "sideEffects": [

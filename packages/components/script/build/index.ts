@@ -8,7 +8,7 @@ import run from '../utils/run';
 //删除easyest
 
 export const removeDist = () => {
-    return delPath(`${pkgPath}/screen-ui`);
+    return delPath(`${pkgPath}/asdata-ui`);
 };
 
 //打包样式
@@ -17,8 +17,8 @@ export const buildStyle = () => {
     return src(`${componentPath}/src/**/style/**.scss`)
         .pipe(sass.sync()) // 2.转换scss
         .pipe(autoprefixer()) // 3.自动添加前缀
-        .pipe(dest(`${pkgPath}/screen-ui/lib/src`))
-        .pipe(dest(`${pkgPath}/screen-ui/es/src`));
+        .pipe(dest(`${pkgPath}/asdata-ui/lib/src`))
+        .pipe(dest(`${pkgPath}/asdata-ui/es/src`));
 };
 
 //打包组件

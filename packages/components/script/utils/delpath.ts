@@ -24,7 +24,7 @@ const delPath = async (path: string) => {
             }
         });
 
-        if (path != `${pkgPath}/screen-ui`) fs.rmdirSync(path);
+        if (path != `${pkgPath}/asdata-ui`) fs.rmdirSync(path);
     }
 };
 export default delPath;
