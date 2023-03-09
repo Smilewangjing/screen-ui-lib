@@ -8,7 +8,7 @@ export default defineConfig({
         //minify: false,
         rollupOptions: {
             //忽略打包vue文件
-            external: ['vue', /\.scss/, '@screen-ui-lib/utils'],
+            external: ['vue', /\.scss/, '@asdata-ui/utils'],
             input: ['index.ts'],
             output: [
                 {

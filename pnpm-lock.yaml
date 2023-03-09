@@ -59,15 +59,15 @@ importers:
 
   packages/asdata-ui:
     specifiers:
-      '@asdata-ui/utils': workspace:^1.0.0
+      '@asdata-ui/utils': workspace:^1.0.2
     dependencies:
       '@asdata-ui/utils': link:../utils
 
   packages/components:
     specifiers:
-      '@screen-ui-lib/utils': workspace:^1.0.0
+      '@asdata-ui/utils': workspace:^1.0.2
     dependencies:
-      '@screen-ui-lib/utils': link:../utils
+      '@asdata-ui/utils': link:../utils
 
   play:
     specifiers:

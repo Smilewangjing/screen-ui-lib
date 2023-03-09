@@ -30,7 +30,7 @@ export default defineConfig({
         },
         lib: {
             entry: './index.ts',
-            name: 'sdata-ui-utils'
+            name: 'asdata-ui-utils'
         }
     },
 
