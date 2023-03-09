@@ -1,0 +1,45 @@
+{
+  "name": "screen-ui-lib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -C play dev",
+    "build:screen-ui": "gulp -f packages/components/script/build/index.ts & pnpm run --filter ./packages/utils build",
+    "publish:screen-ui": "gulp -f packages/components/script/publish/index.ts",
+    "publish:screen-ui-utils": "gulp -f packages/utils/publish/index.ts",
+    "lint:script": "eslint --ext .js,.jsx,.vue,.ts,.tsx --fix --quiet ./"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/gulp": "^4.0.10",
+    "@types/gulp-autoprefixer": "^0.0.33",
+    "@types/gulp-sass": "^5.0.0",
+    "@types/node": "^18.14.6",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.9.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-sass": "^5.1.0",
+    "prettier": "^2.8.4",
+    "release-it": "^15.7.0",
+    "sass": "^1.58.3",
+    "sucrase": "^3.29.0",
+    "typescript": "^4.9.5",
+    "unplugin-vue-define-options": "^1.2.3",
+    "vite": "^4.1.0",
+    "vite-plugin-dts": "^2.1.0",
+    "vue": "^3.2.47"
+  },
+  "dependencies": {
+    "@screen-ui-lib/components": "workspace:^1.0.0",
+    "@screen-ui-lib/utils": "workspace:^1.0.0"
+  }
+}

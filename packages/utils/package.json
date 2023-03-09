@@ -1,0 +1,13 @@
+{
+  "name": "@screen-ui-lib/utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "build": "vite build",
+    "release": "release-it"
+  }
+}
