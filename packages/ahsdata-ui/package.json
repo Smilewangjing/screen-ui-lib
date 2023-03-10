@@ -1,27 +1,27 @@
 {
-  "name": "ahsdata-ui",
-  "version": "1.0.6",
-  "main": "lib/index.js",
-  "module": "es/index.mjs",
-  "files": [
-    "es",
-    "lib"
-  ],
-  "keywords": [
-    "ahsdata-ui",
-    "vue3组件库"
-  ],
-  "sideEffects": [
-    "**/*.css"
-  ],
-  "author": "",
-  "license": "MIT",
-  "description": "",
-  "scripts": {
-    "release": "release-it"
-  },
-  "typings": "lib/index.d.ts",
-  "dependencies": {
-    "@ahsdata-ui/utils": "workspace:^1.0.5"
-  }
+    "name": "ahsdata-ui",
+    "version": "1.0.6",
+    "main": "lib/index.js",
+    "module": "es/index.mjs",
+    "files": [
+        "es",
+        "lib"
+    ],
+    "keywords": [
+        "ahsdata-ui",
+        "vue3组件库"
+    ],
+    "sideEffects": [
+        "**/*.css"
+    ],
+    "author": "",
+    "license": "MIT",
+    "description": "",
+    "scripts": {
+        "release": "release-it"
+    },
+    "typings": "lib/index.d.ts",
+    "dependencies": {
+        "@ahsdata-ui/utils": "workspace:*"
+    }
 }

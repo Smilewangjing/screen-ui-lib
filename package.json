@@ -39,7 +39,7 @@
         "vue": "^3.2.47"
     },
     "dependencies": {
-        "@ahsdata-ui/components": "workspace:^1.0.0",
-        "@ahsdata-ui/utils": "workspace:^1.0.0"
+        "@ahsdata-ui/components": "workspace:*",
+        "@ahsdata-ui/utils": "workspace:*"
     }
 }

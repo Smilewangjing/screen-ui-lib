@@ -10,6 +10,6 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@ahsdata-ui/utils": "workspace:^1.0.5"
+        "@ahsdata-ui/utils": "workspace:*"
     }
 }
