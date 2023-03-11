@@ -57,8 +57,13 @@ importers:
 
   docs:
     specifiers:
+      '@ahsdata-ui/components': workspace:*
+      ahsdata-ui: workspace:*
       vitepress: 1.0.0-alpha.51
       vitepress-theme-demoblock: ^2.0.2
+    dependencies:
+      '@ahsdata-ui/components': link:../packages/components
+      ahsdata-ui: link:../packages/ahsdata-ui
     devDependencies:
       vitepress: 1.0.0-alpha.51
       vitepress-theme-demoblock: 2.0.2
