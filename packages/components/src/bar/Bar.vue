@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
     <v-chart class="chart" :option="option" />
 </template>
 
@@ -6,6 +6,7 @@
 import './style/index.scss';
 import VChart, { THEME_KEY } from 'vue-echarts';
 import 'echarts';
+
 import { ref, provide } from 'vue';
 
 defineOptions({ name: 's-bar' });
@@ -142,22 +143,5 @@ const option = ref({
             data: [10, 20, 40, 60, 80]
         }
     ]
-});
-</script> -->
-<template>
-    <button class="s-button" :class="buttonStyle"><slot /></button>
-</template>
-
-<script lang="ts" setup>
-import './style/index.scss';
-import { computed } from 'vue';
-defineOptions({ name: 's-button1' });
-type ButtonProps = {
-    type?: string;
-};
-const buttonProps = defineProps<ButtonProps>();
-
-const buttonStyle = computed(() => {
-    return { [`s-button--${buttonProps.type}`]: buttonProps.type };
 });
 </script>
