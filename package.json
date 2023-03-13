@@ -5,9 +5,10 @@
     "main": "index.js",
     "scripts": {
         "dev": "pnpm -C play dev",
-        "build:screen-ui": "gulp -f packages/components/script/build/index.ts & pnpm run --filter ./packages/utils build",
-        "publish:screen-ui": "gulp -f packages/components/script/publish/index.ts",
-        "publish:screen-ui-utils": "gulp -f packages/utils/publish/index.ts",
+        "build": "gulp -f packages/components/script/build/index.ts & pnpm run --filter ./packages/utils build",
+        "publish:lib": "gulp -f packages/components/script/publish/index.ts",
+        "publish:utils": "gulp -f packages/utils/publish/index.ts",
+        "publish":"gulp -f packages/components/script/publish/index.ts & gulp -f packages/utils/publish/index.ts",
         "lint:script": "eslint --ext .js,.jsx,.vue,.ts,.tsx --fix --quiet ./",
         "docs:dev": "pnpm -C docs dev"
     },
