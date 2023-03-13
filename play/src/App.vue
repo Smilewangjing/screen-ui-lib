@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ea-button type="primary">按钮</ea-button>
+        <s-bar type="primary"></s-bar>
     </div>
 </template>
 
