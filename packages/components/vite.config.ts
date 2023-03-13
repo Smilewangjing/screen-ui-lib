@@ -8,7 +8,7 @@ export default defineConfig({
         //minify: false,
         rollupOptions: {
             //忽略打包vue文件
-            external: ['vue', /\.scss/, '@ahsdata-ui/utils'],
+            external: ['vue', /\.scss/, '@ahsdata-ui/utils', 'echarts', 'vue-echarts'],
             input: ['index.ts'],
             output: [
                 {

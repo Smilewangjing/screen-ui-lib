@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import './style/index.scss';
 import { computed } from 'vue';
-defineOptions({ name: 'ea-button' });
+defineOptions({ name: 's-button' });
 type ButtonProps = {
     type?: string;
 };

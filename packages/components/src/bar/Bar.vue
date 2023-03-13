@@ -4,12 +4,9 @@
 
 <script lang="ts" setup>
 import './style/index.scss';
-import { use } from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
-import { BarChart } from 'echarts/charts';
-import { PictorialBarChart } from 'echarts/charts';
-import { TooltipComponent, LegendComponent, GridComponent } from 'echarts/components';
 import VChart, { THEME_KEY } from 'vue-echarts';
+import 'echarts';
+
 import { ref, provide } from 'vue';
 
 defineOptions({ name: 's-bar' });
@@ -17,15 +14,6 @@ defineOptions({ name: 's-bar' });
 //     type?: string;
 // };
 // const buttonProps = defineProps<ButtonProps>();
-
-use([
-    CanvasRenderer,
-    BarChart,
-    TooltipComponent,
-    LegendComponent,
-    GridComponent,
-    PictorialBarChart
-]);
 
 provide(THEME_KEY, 'dark');
 

@@ -74,17 +74,27 @@ importers:
     specifiers:
       '@ahsdata-ui/utils': workspace:*
       echarts: ^5.4.1
+      vue: ^3.2.47
       vue-echarts: ^6.5.4
     dependencies:
       '@ahsdata-ui/utils': link:../utils
       echarts: 5.4.1
-      vue-echarts: 6.5.4_echarts@5.4.1
+      vue-echarts: 6.5.4_echarts@5.4.1+vue@3.2.47
+    devDependencies:
+      vue: 3.2.47
 
   packages/components:
     specifiers:
       '@ahsdata-ui/utils': workspace:*
+      echarts: ^5.4.1
+      vue: ^3.2.47
+      vue-echarts: ^6.5.4
     dependencies:
       '@ahsdata-ui/utils': link:../utils
+      echarts: 5.4.1
+      vue-echarts: 6.5.4_echarts@5.4.1+vue@3.2.47
+    devDependencies:
+      vue: 3.2.47
 
   packages/utils:
     specifiers: {}
@@ -4738,19 +4748,6 @@ packages:
     resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
     dev: true
 
-  /vue-demi/0.13.11:
-    resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
-    engines: {node: '>=12'}
-    hasBin: true
-    requiresBuild: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.0.0-0 || ^2.6.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-    dev: false
-
   /vue-demi/0.13.11_vue@3.2.47:
     resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
     engines: {node: '>=12'}
@@ -4764,23 +4761,6 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.47
-    dev: true
-
-  /vue-echarts/6.5.4_echarts@5.4.1:
-    resolution: {integrity: sha512-pLJTk2hfhauoWdmiZGXByAtcO6bpfnAS+jkJqKimSBSV5I5ckh2nka9duLlIVbTvQOEb2tFa0XiXjACQNcEfpA==}
-    requiresBuild: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.5
-      echarts: ^5.4.1
-      vue: ^2.6.12 || ^3.1.1
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-    dependencies:
-      echarts: 5.4.1
-      resize-detector: 0.3.0
-      vue-demi: 0.13.11
-    dev: false
 
   /vue-echarts/6.5.4_echarts@5.4.1+vue@3.2.47:
     resolution: {integrity: sha512-pLJTk2hfhauoWdmiZGXByAtcO6bpfnAS+jkJqKimSBSV5I5ckh2nka9duLlIVbTvQOEb2tFa0XiXjACQNcEfpA==}
@@ -4797,7 +4777,6 @@ packages:
       resize-detector: 0.3.0
       vue: 3.2.47
       vue-demi: 0.13.11_vue@3.2.47
-    dev: true
 
   /vue-eslint-parser/9.1.0_eslint@8.35.0:
     resolution: {integrity: sha512-NGn/iQy8/Wb7RrRa4aRkokyCZfOUWk19OP5HP6JEozQFX5AoS/t+Z0ZN7FY4LlmWc4FNI922V7cvX28zctN8dQ==}
