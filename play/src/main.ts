@@ -4,4 +4,9 @@ import App from './App.vue';
 
 import screenUI from '@ahsdata-ui/components';
 
-createApp(App).use(screenUI).mount('#app');
+import router from './router';
+
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css';
+
+createApp(App).use(screenUI).use(ElementPlus).use(router).mount('#app');

@@ -10,7 +10,6 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@ahsdata-ui/utils": "workspace:*",
         "echarts": "^5.4.1",
         "vue-echarts": "^6.5.4"
     },

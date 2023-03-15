@@ -1,33 +1,70 @@
 <template>
-    <v-chart class="chart" :option="option" />
+    <v-chart :theme="themeJson" class="bar-chart-host" :autoresize="true" :option="option" />
 </template>
 
 <script lang="ts" setup>
 import './style/index.scss';
-import VChart, { THEME_KEY } from 'vue-echarts';
+import VChart from 'vue-echarts';
 import 'echarts';
+import { numFormat, parseHexColor } from '@ahsdata-ui/utils';
 
-import { ref, provide } from 'vue';
+import { onMounted, ref } from 'vue';
+
+import themeJson from '../common/chartTheme.json';
+import type { BarSeriesOption, PictorialBarSeriesOption } from 'echarts';
 
 defineOptions({ name: 's-bar' });
 
-provide(THEME_KEY, 'dark');
+type BarProps = {
+    showLabel?: boolean;
+    showShadow?: boolean;
+    showRect?: boolean;
+    splitBar?: boolean;
+    data: number[];
+    category: string[];
+    barWidth?: number;
+    rectBarWidth?: number;
+    showLabelStyle?: boolean;
+    barBorderRadius?: number[];
+    showBar3D?: boolean;
+};
+
+const barProps = withDefaults(defineProps<BarProps>(), {
+    barWidth: 16,
+    rectBarWidth: 16,
+    barBorderRadius: () => [0, 0, 0, 0]
+});
 
 const option = ref({
-    backgroundColor: '#031223',
+    color: themeJson.customBar.color,
     tooltip: {
-        trigger: 'axis',
+        trigger: !barProps.showShadow ? 'axis' : null,
+        formatter: '{b} :{c}',
         axisPointer: {
-            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            type: 'shadow',
+            shadowStyle: {
+                color: 'rgba(103,166,233,0.12)'
+            }
         },
-        formatter: '{b} :{c}'
+        backgroundColor: 'rgba(104,155,254,0.04)',
+        extraCssText:
+            'box-shadow:0 4px 40px 0 rgba(15,19,26,0.20);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:3px;',
+        borderWidth: 0,
+        textStyle: {
+            color: '#D0DEEE'
+        }
+    },
+    grid: {
+        containLabel: true,
+        left: 20,
+        right: 20,
+        bottom: 20,
+        top: 20
     },
     xAxis: [
         {
             type: 'category',
-            data: ['断网', '断电', '非法操作', '钥匙开门', '非法人员'],
-
+            data: barProps.category,
             axisTick: {
                 alignWithLabel: true,
                 show: false
@@ -36,11 +73,12 @@ const option = ref({
                 show: true
             },
             axisLabel: {
-                interval: 0, // 解决x轴名称过长问题
-                textStyle: {
-                    color: '#c8d8e3'
-                }
+                interval: 0 // 解决x轴名称过长问题
             }
+        },
+        {
+            show: false,
+            data: barProps.category
         }
     ],
     yAxis: [
@@ -53,95 +91,177 @@ const option = ref({
                 lineStyle: {
                     type: 'dashed'
                 }
+            },
+            axisLabel: {
+                formatter: (value: number) => {
+                    return numFormat(value);
+                }
             }
         }
     ],
-    series: [
-        {
-            name: '',
+    series: []
+});
+
+onMounted(() => {
+    const colorObj = parseHexColor('#1978E5');
+    console.log(colorObj);
+    const series = [];
+    if (barProps.splitBar) {
+        series.push({
+            // 分隔
             type: 'pictorialBar',
+            symbolRepeat: 'fixed',
+            symbolMargin: 4,
             symbol: 'rect',
-            symbolSize: [17, 3],
-            symbolOffset: [0, 0],
-            zlevel: 3,
-            tooltip: {
-                show: false
-            },
-            itemStyle: {
-                color: '#1978E5'
-            },
-            data: [
-                {
-                    value: 10,
-                    symbolPosition: 'end'
-                },
-                {
-                    value: 20,
-                    symbolPosition: 'end'
-                },
-                {
-                    value: 40,
-                    symbolPosition: 'end'
-                },
-                {
-                    value: 60,
-                    symbolPosition: 'end'
-                },
-                {
-                    value: 80,
-                    symbolPosition: 'end'
-                }
-            ]
-        },
-        {
-            name: '动环资产',
+            symbolClip: true,
+            symbolSize: [barProps.barWidth, 8],
+            symbolPosition: 'start',
+            symbolOffset: [0, -1],
+            data: barProps.data,
+            zlevel: 8
+        } as PictorialBarSeriesOption);
+    } else {
+        series.push({
             type: 'bar',
-            zlevel: 2,
-            barWidth: 18, //去掉这个则会显示柱状阴影
+            xAxisIndex: 0,
+            barWidth: barProps.barWidth, //去掉这个则会显示柱状阴影
             emphasis: {
+                disabled: barProps.showShadow,
                 label: {
                     show: true,
-                    position: 'top',
-                    color: '#D8F0FF'
-                },
-                itemStyle: {
-                    color: {
-                        type: 'linear',
-                        x: 0,
-                        y: 1,
-                        colorStops: [
-                            {
-                                offset: 0,
-                                color: 'rgba(0,213,255,0.1)'
-                            },
-                            {
-                                offset: 1,
-                                color: 'rgba(0,213,255,0.6)'
-                            }
-                        ]
+                    positsion: 'top',
+                    padding: [-1, -8, 0, -8],
+                    formatter: (params) => {
+                        return barProps.showLabelStyle
+                            ? `{symbol|〔} ${numFormat(params.value as number)} {symbol|〕}`
+                            : numFormat(params.value as number);
                     }
                 }
             },
             itemStyle: {
-                color: {
-                    type: 'linear',
-                    // x=0,y=1,柱子的颜色在垂直方向渐变
-                    x: 0,
-                    y: 1,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: 'rgba(25,120,229,0.1)'
-                        },
-                        {
-                            offset: 1,
-                            color: 'rgba(25,120,229,0.6)'
-                        }
-                    ]
+                borderRadius: barProps.barBorderRadius
+                // color: {
+                //     type: 'linear',
+                //     x: 0,
+                //     x2: 1,
+                //     y: 0,
+                //     y2: 0,
+                //     colorStops: [
+                //         {
+                //             offset: 0,
+                //             color: '#73fcff' // 最左边
+                //         },
+                //         {
+                //             offset: 0.5,
+                //             color: '#86eef1' // 左边的右边 颜色
+                //         },
+                //         {
+                //             offset: 0.5,
+                //             color: '#5ad6d9' // 右边的左边 颜色
+                //         },
+                //         {
+                //             offset: 1,
+                //             color: '#3dc8ca'
+                //         }
+                //     ]
+                // }
+            },
+            label: {
+                show: barProps.showLabel,
+                position: 'top',
+                backgroundColor: barProps.showLabelStyle ? 'red' : 'none',
+                padding: [-1, -8, 0, -8],
+                formatter: (params) => {
+                    return barProps.showLabelStyle
+                        ? `{symbol|〔} ${numFormat(params.value as number)} {symbol|〕}`
+                        : numFormat(params.value as number);
+                },
+                rich: {
+                    symbol: {
+                        color: '#ccc'
+                    }
                 }
             },
-            data: [10, 20, 40, 60, 80]
-        }
-    ]
+            data: barProps.data
+        } as BarSeriesOption);
+    }
+    if (barProps.showShadow) {
+        series.push({
+            type: 'bar',
+            barCategoryGap: '20%',
+            xAxisIndex: 1,
+            data: barProps.category.map(() => 0),
+            showBackground: true,
+            backgroundStyle: {
+                color: 'rgba(255,255,255,0.06)'
+            },
+            barWidth: 48,
+            emphasis: {
+                disabled: true
+            },
+            tooltip: {
+                show: false
+            },
+            z: 1
+        });
+    }
+
+    if (barProps.showRect) {
+        series.push({
+            type: 'pictorialBar',
+            symbol: 'rect',
+            zlevel: 3,
+            symbolSize: [barProps.rectBarWidth, 3],
+            symbolOffset: [0, 0],
+            symbolPosition: 'end',
+            emphasis: {
+                disabled: barProps.showShadow
+            },
+            itemStyle: {
+                color: themeJson.customPictorialBar.color
+            },
+
+            data: barProps.data
+        } as PictorialBarSeriesOption);
+    }
+    if (barProps.showLabel && barProps.splitBar) {
+        series.push({
+            type: 'bar',
+            barWidth: barProps.barWidth,
+            label: {
+                show: true,
+                position: 'top',
+                formatter: function (params) {
+                    return numFormat(params.value as number);
+                }
+            },
+            itemStyle: {
+                color: 'transparent'
+            },
+            data: barProps.data,
+            emphasis: {
+                disabled: true
+            }
+        } as BarSeriesOption);
+    }
+
+    if (barProps.showBar3D) {
+        series.push({
+            z: 10,
+            xAxisIndex: 0,
+            type: 'pictorialBar',
+            symbolPosition: 'end',
+            data: barProps.data,
+            symbol: 'diamond',
+            symbolOffset: [0, '-50%'],
+            symbolSize: [barProps.barWidth, barProps.barWidth * 0.5],
+            itemStyle: {
+                borderWidth: 0,
+                color: '#73fcff'
+            }
+        } as PictorialBarSeriesOption);
+    }
+
+    option.value.series = series;
 });
 </script>

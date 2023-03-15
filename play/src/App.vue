@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <s-bar type="primary"></s-bar>
-    </div>
+    <RouterView />
 </template>
 
 <script setup lang="ts"></script>

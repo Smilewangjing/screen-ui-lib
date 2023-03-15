@@ -11,6 +11,7 @@
     "moduleResolution": "Node",
     "lib": ["esnext", "dom"],
     "resolveJsonModule": true,
+    "strictNullChecks": false,
     "types": ["unplugin-vue-define-options/macros-global"]
   }
 }
