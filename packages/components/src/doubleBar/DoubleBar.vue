@@ -1,127 +1,66 @@
 <template>
-    <v-chart
-        :theme="themeJson"
-        ref="echartsRef"
-        class="double-chart-host"
-        :option="option"
-        :update-options="option"
-    />
+    <div class="double-chart-host" ref="echartsRef"></div>
 </template>
 
 <script lang="ts" setup>
 import './style/index.scss';
-import VChart from 'vue-echarts';
 import 'echarts';
 
 import { numFormat } from '@ahsdata-ui/utils';
 
-import { onMounted, ref } from 'vue';
+import { onMounted, computed } from 'vue';
 
 import themeJson from '../common/chartTheme.json';
-import type { BarSeriesOption, PictorialBarSeriesOption, SeriesOption } from 'echarts';
+import type {
+    BarSeriesOption,
+    EChartsOption,
+    PictorialBarSeriesOption,
+    SeriesOption
+} from 'echarts';
+import { useEchart } from '../common/hooks/useEchart';
 
 defineOptions({ name: 's-double-bar' });
 
 type BarProps = {
-    showLabel?: boolean;
     showShadow?: boolean;
     showRect?: boolean;
     showTriangleBar?: boolean;
     category: string[];
+    bgBarWidth?: number;
+    barWidth?: number;
+    rectBarWidth?: number;
     data: {
         name: string;
-        value: string[];
+        value: number[];
+        topValue: number[];
     }[];
+    isHeadUp?: boolean;
+    theme?: object;
 };
-const barProps = defineProps<BarProps>();
+const barProps = withDefaults(defineProps<BarProps>(), {
+    barWidth: 10,
+    rectBarWidth: 10,
+    bgBarWidth: 48,
+    barBorderRadius: () => [0, 0, 0, 0]
+});
 
-const echartsRef = ref();
-
-const option = ref({
-    color: themeJson.customBar.color,
-    tooltip: {
-        //提示框组件
-        trigger: 'axis', //触发类型 柱状图
-        axisPointer: {
-            type: barProps.showShadow ? 'none' : 'shadow',
-            shadowStyle: {
-                color: 'rgba(103,166,233,0.12)'
-            }
-        },
-        backgroundColor: 'rgba(104,155,254,0.04)',
-        extraCssText:
-            'box-shadow:0 4px 40px 0 rgba(15,19,26,0.20);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:3px;',
-        borderWidth: 0,
-        textStyle: {
-            color: '#D0DEEE'
-        }
-    },
-    grid: {
-        containLabel: true,
-        left: 20,
-        right: 20,
-        bottom: 20,
-        top: 20
-    },
-    legend: {
-        type: 'scroll',
-        right: 0,
-        itemWidth: 6,
-        itemHeight: 6,
-        icon: 'circle',
-        textStyle: {
-            // 图例文字的样式
-            color: '#D8F0FF',
-            fontSize: 14,
-            padding: [2, 0, 0, 2],
-            fontWeight: 100
-        }
-    },
-    xAxis: [
-        {
-            type: 'category',
-            data: barProps.category,
-            axisTick: {
-                alignWithLabel: true,
-                show: false
-            },
-            axisLine: {
-                show: true
-            },
-            axisLabel: {
-                interval: 0 // 解决x轴名称过长问题
-            }
-        },
-        {
-            type: 'category',
-            data: barProps.category,
-            show: false
-        }
-    ],
-    yAxis: [
-        {
-            axisLine: {
-                show: false
-            },
-            splitLine: {
-                show: true,
-                lineStyle: {
-                    type: 'dashed'
-                }
-            },
-            axisLabel: {
-                formatter: (value: number) => {
-                    return numFormat(value);
-                }
-            }
-        }
-    ],
-    series: []
+const theme = computed(() => {
+    return Object.assign(themeJson, barProps.theme);
 });
 
 const getSeries = () => {
+    const data = barProps.data;
+    if (barProps.isHeadUp) {
+        data.reduce((prev, next) => {
+            next['topValue'] = next.value.map((item, index) => {
+                return item + (prev?.[index] || 0);
+            });
+            return next['topValue'];
+        }, []);
+    }
+
     const startOffset = ((barProps.data || []).length - 1) * -6;
-    return (barProps.data || [])
+    const series = (barProps.data || [])
         .map((item, index) => {
             const series: SeriesOption[] = [
                 barProps.showTriangleBar
@@ -134,27 +73,25 @@ const getSeries = () => {
                       } as PictorialBarSeriesOption)
                     : ({
                           type: 'bar',
+                          stack: barProps.isHeadUp ? '总量' : null,
                           name: item.name,
-                          barWidth: 10,
+                          barWidth: barProps.barWidth,
                           xAxisIndex: 0,
-                          data: item.value,
-                          emphasis: {
-                              disabled: true
-                          }
+                          data: item.value
                       } as BarSeriesOption)
             ];
-            if (barProps.showRect) {
+            if (barProps.showRect && !barProps.showTriangleBar) {
                 series.push({
-                    data: item.value,
+                    data: barProps.isHeadUp ? item.topValue : item.value,
                     type: 'pictorialBar',
                     symbolPosition: 'end',
                     xAxisIndex: 0,
                     symbol: 'rect',
-                    symbolOffset: [startOffset + 12 * index, -1],
-                    symbolSize: [10, 2],
+                    symbolOffset: [barProps.isHeadUp ? 0 : startOffset + 12 * index, -1],
+                    symbolSize: [barProps.barWidth, 2],
                     zlevel: 8,
                     itemStyle: {
-                        color: '#fff'
+                        color: theme.value?.customDoubleBar?.splitColor?.[index]
                     },
                     tooltip: {
                         show: false
@@ -164,16 +101,13 @@ const getSeries = () => {
             return series;
         })
         .flat();
-};
-
-onMounted(() => {
-    const series = getSeries();
     if (barProps.showShadow) {
         series.push({
             // 背景
             type: 'bar',
             barCategoryGap: '20%',
             xAxisIndex: 1,
+            barWidth: barProps.bgBarWidth,
             data: barProps.category.map(() => '0'),
             showBackground: true,
             backgroundStyle: {
@@ -184,6 +118,92 @@ onMounted(() => {
             }
         } as BarSeriesOption);
     }
-    option.value.series = series;
+    return series;
+};
+
+const getOption = () => {
+    const option = {
+        color: theme.value?.customDoubleBar?.color,
+        tooltip: {
+            //提示框组件
+            trigger: 'axis', //触发类型 柱状图
+            axisPointer: {
+                type: barProps.showShadow ? 'none' : 'shadow',
+                shadowStyle: {
+                    color: 'rgba(103,166,233,0.12)'
+                }
+            },
+            backgroundColor: 'rgba(104,155,254,0.04)',
+            extraCssText:
+                'box-shadow:0 4px 40px 0 rgba(15,19,26,0.20);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:3px;',
+            borderWidth: 0
+        },
+        grid: {
+            containLabel: true,
+            left: 20,
+            right: 20,
+            bottom: 20,
+            top: 20
+        },
+        legend: {
+            type: 'scroll',
+            right: 0
+            // data: barProps.data.map((item, index) => {
+            //     return {
+            //         name: item.name,
+            //         itemStyle: {
+            //             color: theme.value.color[index]
+            //         }
+            //     };
+            // })
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: barProps.category,
+                axisTick: {
+                    alignWithLabel: true,
+                    show: false
+                },
+                axisLine: {
+                    show: true
+                },
+                axisLabel: {
+                    interval: 0 // 解决x轴名称过长问题
+                }
+            },
+            {
+                type: 'category',
+                data: barProps.category,
+                show: false
+            }
+        ],
+        yAxis: [
+            {
+                axisLine: {
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        type: 'dashed'
+                    }
+                },
+                axisLabel: {
+                    formatter: (value: number) => {
+                        return numFormat(value);
+                    }
+                }
+            }
+        ],
+        series: getSeries()
+    } as EChartsOption;
+    return option;
+};
+
+const { initEchart, echartsRef } = useEchart();
+
+onMounted(() => {
+    initEchart(getOption());
 });
 </script>

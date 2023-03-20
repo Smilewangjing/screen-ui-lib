@@ -10,6 +10,10 @@ const routes = [
             {
                 path: '/bar',
                 component: () => import('@/views/bar/Bar.vue')
+            },
+            {
+                path: '/pie',
+                component: () => import('@/views/pie/Pie.vue')
             }
         ]
     }

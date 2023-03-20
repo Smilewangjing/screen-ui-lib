@@ -43,6 +43,10 @@ const menus = [
             {
                 name: '柱状图',
                 index: '/bar'
+            },
+            {
+                name: '饼图',
+                index: '/pie'
             }
         ]
     }

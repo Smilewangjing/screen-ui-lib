@@ -74,23 +74,23 @@ importers:
     specifiers:
       '@ahsdata-ui/utils': workspace:*
       echarts: ^5.4.1
+      loadsh: ^0.0.4
       vue: ^3.2.47
-      vue-echarts: ^6.5.4
     dependencies:
       '@ahsdata-ui/utils': link:../utils
       echarts: 5.4.1
-      vue-echarts: 6.5.4_echarts@5.4.1+vue@3.2.47
+      loadsh: 0.0.4
     devDependencies:
       vue: 3.2.47
 
   packages/components:
     specifiers:
       echarts: ^5.4.1
+      loadsh: ^0.0.4
       vue: ^3.2.47
-      vue-echarts: ^6.5.4
     dependencies:
       echarts: 5.4.1
-      vue-echarts: 6.5.4_echarts@5.4.1+vue@3.2.47
+      loadsh: 0.0.4
     devDependencies:
       vue: 3.2.47
 
@@ -935,7 +935,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.1.4
+      vite: 4.1.4_tbu6ibuzbmq2zng52hwcifltki
       vue: 3.2.47
     dev: true
 
@@ -3165,6 +3165,11 @@ packages:
       strip-bom: 2.0.0
     dev: true
 
+  /loadsh/0.0.4:
+    resolution: {integrity: sha512-U+wLL8InpfRalWrr+0SuhWgGt10M4OyAk6G8xCYo2rwpiHtxZkWiFpjei0vO463ghW8LPCdhqQxXlMy2qicAEw==}
+    deprecated: This is a typosquat on the popular Lodash package. This is not maintained nor is the original Lodash package.
+    dev: false
+
   /local-pkg/0.4.3:
     resolution: {integrity: sha512-SFppqq5p42fe2qcZQqqEOiVRXl+WCP1MdT6k7BDEW1j++sp5fIY+/fdRQitvKgB5BrBcmrs5m/L0v2FrU5MY1g==}
     engines: {node: '>=14'}
@@ -3957,6 +3962,7 @@ packages:
 
   /resize-detector/0.3.0:
     resolution: {integrity: sha512-R/tCuvuOHQ8o2boRP6vgx8hXCCy87H1eY9V5imBYeVNyNVpuL9ciReSccLj2gDcax9+2weXy3bc8Vv+NRXeEvQ==}
+    dev: true
 
   /resolve-dir/1.0.1:
     resolution: {integrity: sha512-R7uiTjECzvOsWSfdM0QKFNBVFcK27aHOUwdvK53BcW8zqnGdYp0Fbj82cy54+2A4P2tFM22J5kRfe1R+lM/1yg==}
@@ -4871,6 +4877,7 @@ packages:
       resize-detector: 0.3.0
       vue: 3.2.47
       vue-demi: 0.13.11_vue@3.2.47
+    dev: true
 
   /vue-eslint-parser/9.1.0_eslint@8.35.0:
     resolution: {integrity: sha512-NGn/iQy8/Wb7RrRa4aRkokyCZfOUWk19OP5HP6JEozQFX5AoS/t+Z0ZN7FY4LlmWc4FNI922V7cvX28zctN8dQ==}

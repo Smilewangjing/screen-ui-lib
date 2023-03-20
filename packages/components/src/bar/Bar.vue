@@ -1,19 +1,26 @@
 <template>
-    <v-chart :theme="themeJson" class="bar-chart-host" :autoresize="true" :option="option" />
+    <div class="bar-chart-host" ref="echartsRef"></div>
 </template>
 
 <script lang="ts" setup>
 import './style/index.scss';
-import VChart from 'vue-echarts';
-import 'echarts';
-import { numFormat, parseHexColor } from '@ahsdata-ui/utils';
+import { numFormat } from '@ahsdata-ui/utils';
 
-import { onMounted, ref } from 'vue';
+import { onMounted, computed } from 'vue';
 
-import themeJson from '../common/chartTheme.json';
-import type { BarSeriesOption, PictorialBarSeriesOption } from 'echarts';
+import type {
+    BarSeriesOption,
+    EChartsOption,
+    PictorialBarSeriesOption,
+    SeriesOption
+} from 'echarts';
+import { useEchart } from '../common/hooks/useEchart';
+
+import { cloneDeep } from 'lodash';
 
 defineOptions({ name: 's-bar' });
+
+const { initEchart, echartsRef, themeJson } = useEchart();
 
 type BarProps = {
     showLabel?: boolean;
@@ -26,151 +33,172 @@ type BarProps = {
     rectBarWidth?: number;
     showLabelStyle?: boolean;
     barBorderRadius?: number[];
-    showBar3D?: boolean;
+    showSymbol?: boolean;
+    theme?: object;
+    disbledEmphasis?: boolean;
+    disbledTrigger?: boolean;
+    bgBarWidth?: number;
 };
+
+const theme = computed(() => {
+    return Object.assign(cloneDeep(themeJson), barProps.theme);
+});
 
 const barProps = withDefaults(defineProps<BarProps>(), {
     barWidth: 16,
     rectBarWidth: 16,
+    bgBarWidth: 48,
     barBorderRadius: () => [0, 0, 0, 0]
 });
 
-const option = ref({
-    color: themeJson.customBar.color,
-    tooltip: {
-        trigger: !barProps.showShadow ? 'axis' : null,
-        formatter: '{b} :{c}',
-        axisPointer: {
-            type: 'shadow',
-            shadowStyle: {
-                color: 'rgba(103,166,233,0.12)'
-            }
-        },
-        backgroundColor: 'rgba(104,155,254,0.04)',
-        extraCssText:
-            'box-shadow:0 4px 40px 0 rgba(15,19,26,0.20);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:3px;',
-        borderWidth: 0,
-        textStyle: {
-            color: '#D0DEEE'
-        }
-    },
-    grid: {
-        containLabel: true,
-        left: 20,
-        right: 20,
-        bottom: 20,
-        top: 20
-    },
-    xAxis: [
-        {
-            type: 'category',
-            data: barProps.category,
-            axisTick: {
-                alignWithLabel: true,
-                show: false
-            },
-            axisLine: {
-                show: true
-            },
-            axisLabel: {
-                interval: 0 // 解决x轴名称过长问题
-            }
-        },
-        {
-            show: false,
-            data: barProps.category
-        }
-    ],
-    yAxis: [
-        {
-            axisLine: {
-                show: false
-            },
-            splitLine: {
-                show: true,
-                lineStyle: {
-                    type: 'dashed'
+const setOption = () => {
+    console.log(theme.value?.customBar?.splitBarColor);
+    const option = {
+        color: theme.value?.customBar?.color,
+        tooltip: {
+            trigger: !barProps.showShadow && !barProps.disbledTrigger ? 'axis' : null,
+            formatter: '{b} :{c}',
+            axisPointer: {
+                type: 'shadow',
+                shadowStyle: {
+                    color: 'rgba(103,166,233,0.12)'
                 }
             },
-            axisLabel: {
-                formatter: (value: number) => {
-                    return numFormat(value);
+            backgroundColor: 'rgba(104,155,254,0.04)',
+            extraCssText:
+                'box-shadow:0 4px 40px 0 rgba(15,19,26,0.20);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:3px;',
+            borderWidth: 0
+        },
+        grid: {
+            containLabel: true,
+            left: 20,
+            right: 20,
+            bottom: 20,
+            top: 20
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: barProps.category,
+                axisTick: {
+                    alignWithLabel: true,
+                    show: false
+                },
+                axisLine: {
+                    show: true
+                },
+                axisLabel: {
+                    interval: 0 // 解决x轴名称过长问题
                 }
+            },
+            {
+                show: false,
+                data: barProps.category
             }
-        }
-    ],
-    series: []
-});
-
-onMounted(() => {
-    const colorObj = parseHexColor('#1978E5');
-    console.log(colorObj);
-    const series = [];
-    if (barProps.splitBar) {
-        series.push({
-            // 分隔
-            type: 'pictorialBar',
-            symbolRepeat: 'fixed',
-            symbolMargin: 4,
-            symbol: 'rect',
-            symbolClip: true,
-            symbolSize: [barProps.barWidth, 8],
-            symbolPosition: 'start',
-            symbolOffset: [0, -1],
-            data: barProps.data,
-            zlevel: 8
-        } as PictorialBarSeriesOption);
-    } else {
-        series.push({
-            type: 'bar',
-            xAxisIndex: 0,
-            barWidth: barProps.barWidth, //去掉这个则会显示柱状阴影
-            emphasis: {
-                disabled: barProps.showShadow,
-                label: {
+        ],
+        yAxis: [
+            {
+                axisLine: {
+                    show: false
+                },
+                splitLine: {
                     show: true,
-                    positsion: 'top',
-                    padding: [-1, -8, 0, -8],
+                    lineStyle: {
+                        type: 'dashed'
+                    }
+                },
+                axisLabel: {
+                    formatter: (value: number) => {
+                        return numFormat(value);
+                    }
+                }
+            }
+        ],
+        series: [] as SeriesOption[]
+    };
+    if (barProps.splitBar) {
+        option.series.push(
+            {
+                name: 'bar',
+                type: 'bar',
+                barWidth: barProps.barWidth,
+                data: barProps.data,
+                label: {
+                    show: barProps.showLabel,
+                    position: 'top',
+                    backgroundColor: barProps.showLabelStyle ? 'rgba(216,240,255,0.10)' : 'none',
+                    padding: [0, -10, -1, -10],
+                    borderRadius: [5],
                     formatter: (params) => {
                         return barProps.showLabelStyle
                             ? `{symbol|〔} ${numFormat(params.value as number)} {symbol|〕}`
                             : numFormat(params.value as number);
+                    },
+                    rich: {
+                        symbol: {
+                            color: '#6E7A83',
+                            fontSize: 16
+                        }
                     }
+                },
+                emphasis: {
+                    itemStyle: {
+                        color: theme.value?.customBar?.emphasis?.color
+                    }
+                }
+            } as BarSeriesOption,
+            {
+                type: 'pictorialBar',
+                symbol: 'rect',
+                itemStyle: {
+                    color: theme.value?.customBar?.splitBarColor
+                },
+                symbolRepeat: true,
+                symbolPosition: 'start',
+                symbolClip: true,
+                symbolSize: [barProps.barWidth, 3],
+                symbolMargin: 3,
+                z: 4,
+                data: barProps.data
+            },
+            {
+                type: 'pictorialBar',
+                symbol: 'rect',
+                itemStyle: {
+                    color: 'rgba(255,255,255,0.06)'
+                },
+                symbolRepeat: true,
+                symbolPosition: 'start',
+                symbolClip: true,
+                symbolSize: [barProps.barWidth, 3],
+                symbolMargin: 3,
+                z: 5,
+                data: barProps.data
+            }
+        );
+    } else {
+        option.series.push({
+            type: 'bar',
+            xAxisIndex: 0,
+            barWidth: barProps.barWidth, //去掉这个则会显示柱状阴影
+            emphasis: {
+                disabled: barProps.showShadow || barProps.disbledEmphasis,
+                label: {
+                    show: true
+                },
+                itemStyle: {
+                    color: theme.value?.customBar?.emphasis?.color
                 }
             },
             itemStyle: {
                 borderRadius: barProps.barBorderRadius
-                // color: {
-                //     type: 'linear',
-                //     x: 0,
-                //     x2: 1,
-                //     y: 0,
-                //     y2: 0,
-                //     colorStops: [
-                //         {
-                //             offset: 0,
-                //             color: '#73fcff' // 最左边
-                //         },
-                //         {
-                //             offset: 0.5,
-                //             color: '#86eef1' // 左边的右边 颜色
-                //         },
-                //         {
-                //             offset: 0.5,
-                //             color: '#5ad6d9' // 右边的左边 颜色
-                //         },
-                //         {
-                //             offset: 1,
-                //             color: '#3dc8ca'
-                //         }
-                //     ]
-                // }
             },
             label: {
                 show: barProps.showLabel,
                 position: 'top',
-                backgroundColor: barProps.showLabelStyle ? 'red' : 'none',
-                padding: [-1, -8, 0, -8],
+                backgroundColor: barProps.showLabelStyle ? 'rgba(216,240,255,0.10)' : 'none',
+                padding: [0, -10, -1, -10],
+                borderRadius: [5],
                 formatter: (params) => {
                     return barProps.showLabelStyle
                         ? `{symbol|〔} ${numFormat(params.value as number)} {symbol|〕}`
@@ -178,15 +206,19 @@ onMounted(() => {
                 },
                 rich: {
                     symbol: {
-                        color: '#ccc'
+                        color: '#6E7A83',
+                        fontSize: 16
                     }
                 }
+            },
+            labelLayout: {
+                dy: barProps.showSymbol ? -barProps.barWidth : 0
             },
             data: barProps.data
         } as BarSeriesOption);
     }
     if (barProps.showShadow) {
-        series.push({
+        option.series.push({
             type: 'bar',
             barCategoryGap: '20%',
             xAxisIndex: 1,
@@ -195,19 +227,15 @@ onMounted(() => {
             backgroundStyle: {
                 color: 'rgba(255,255,255,0.06)'
             },
-            barWidth: 48,
-            emphasis: {
-                disabled: true
-            },
+            barWidth: barProps.bgBarWidth,
             tooltip: {
                 show: false
-            },
-            z: 1
+            }
         });
     }
 
     if (barProps.showRect) {
-        series.push({
+        option.series.push({
             type: 'pictorialBar',
             symbol: 'rect',
             zlevel: 3,
@@ -215,53 +243,101 @@ onMounted(() => {
             symbolOffset: [0, 0],
             symbolPosition: 'end',
             emphasis: {
-                disabled: barProps.showShadow
+                disabled: barProps.showShadow || barProps.disbledEmphasis,
+                itemStyle: {
+                    color: theme.value?.customPictorialBar?.emphasis?.color
+                }
             },
             itemStyle: {
-                color: themeJson.customPictorialBar.color
+                color: theme.value?.customPictorialBar?.color
             },
 
             data: barProps.data
         } as PictorialBarSeriesOption);
     }
-    if (barProps.showLabel && barProps.splitBar) {
-        series.push({
-            type: 'bar',
-            barWidth: barProps.barWidth,
-            label: {
-                show: true,
-                position: 'top',
-                formatter: function (params) {
-                    return numFormat(params.value as number);
+
+    if (barProps.showSymbol) {
+        option.series.push(
+            {
+                name: '圆点',
+                type: 'scatter',
+                symbolOffset: [0, 0],
+                symbolSize: barProps.barWidth,
+                itemStyle: {
+                    opacity: barProps.showSymbol && barProps.showLabel ? 1 : 0,
+                    borderWidth: 0,
+                    color: '#fff'
+                },
+                data: barProps.data,
+                zlevel: 4,
+                emphasis: {
+                    disabled: barProps.disbledEmphasis,
+                    itemStyle: {
+                        opacity: 1
+                    }
                 }
             },
-            itemStyle: {
-                color: 'transparent'
-            },
-            data: barProps.data,
-            emphasis: {
-                disabled: true
+            {
+                name: '圆环',
+                type: 'scatter',
+                symbolOffset: [0, 0],
+                symbolSize: barProps.barWidth * 2,
+                itemStyle: {
+                    opacity: barProps.showSymbol && barProps.showLabel ? 1 : 0,
+                    borderWidth: 1,
+                    borderColor: 'rgba(255,255,255,0.3)',
+                    color: {
+                        type: 'radial',
+                        x: 0.5,
+                        y: 0.5,
+                        r: 0.5,
+                        colorStops: [
+                            {
+                                offset: 0,
+                                color: theme.value?.customBar.color.colorStops[0].color
+                            },
+                            {
+                                offset: 1,
+                                color: theme.value?.customBar.color.colorStops[1].color
+                            }
+                        ]
+                    },
+
+                    shadowBlur: 8,
+                    shadowColor: theme.value?.customBar.color.colorStops[1].color
+                },
+                data: barProps.data,
+                emphasis: {
+                    disabled: barProps.disbledEmphasis,
+                    itemStyle: {
+                        opacity: 1,
+                        color: {
+                            type: 'radial',
+                            x: 0.5,
+                            y: 0.5,
+                            r: 0.5,
+                            colorStops: [
+                                {
+                                    offset: 0,
+                                    color: theme.value?.customBar.emphasis.color.colorStops[0].color
+                                },
+                                {
+                                    offset: 1,
+                                    color: theme.value?.customBar.emphasis.color.colorStops[1].color
+                                }
+                            ]
+                        },
+                        shadowColor: theme.value?.customBar.emphasis.color.colorStops[1].color
+                    }
+                }
             }
-        } as BarSeriesOption);
+        );
     }
 
-    if (barProps.showBar3D) {
-        series.push({
-            z: 10,
-            xAxisIndex: 0,
-            type: 'pictorialBar',
-            symbolPosition: 'end',
-            data: barProps.data,
-            symbol: 'diamond',
-            symbolOffset: [0, '-50%'],
-            symbolSize: [barProps.barWidth, barProps.barWidth * 0.5],
-            itemStyle: {
-                borderWidth: 0,
-                color: '#73fcff'
-            }
-        } as PictorialBarSeriesOption);
-    }
+    return option as EChartsOption;
+};
 
-    option.value.series = series;
+onMounted(() => {
+    initEchart(setOption());
 });
 </script>
