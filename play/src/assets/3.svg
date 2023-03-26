@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="106px" height="106px" viewBox="0 0 106 106" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 18</title>
+    <defs>
+        <circle id="path-1" cx="53" cy="53" r="53"></circle>
+        <filter x="-8.0%" y="-8.0%" width="116.0%" height="116.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="8.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="0" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.0937022808   0 0 0 0 0.709352296   0 0 0 0 0.827304121  0 0 0 0.3 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <radialGradient cx="48.0047086%" cy="-31.7634717%" fx="48.0047086%" fy="-31.7634717%" r="70.3537077%" id="radialGradient-3">
+            <stop stop-color="#00D5FF" offset="0%"></stop>
+            <stop stop-color="#00D5FF" stop-opacity="0" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="50%" cy="-8.71834026%" fx="50%" fy="-8.71834026%" r="70.2845667%" gradientTransform="translate(0.500000,-0.087183),rotate(90.000000),scale(1.000000,2.220461),translate(-0.500000,0.087183)" id="radialGradient-4">
+            <stop stop-color="#00D5FF" offset="0%"></stop>
+            <stop stop-color="#00D5FF" stop-opacity="0.43550363" offset="31.344567%"></stop>
+            <stop stop-color="#00D5FF" stop-opacity="0.213979613" offset="65.8470286%"></stop>
+            <stop stop-color="#00D5FF" stop-opacity="0" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="47.7647175%" cy="117.392882%" fx="47.7647175%" fy="117.392882%" r="70.2845667%" gradientTransform="translate(0.477647,1.173929),rotate(90.000000),scale(1.000000,2.220461),translate(-0.477647,-1.173929)" id="radialGradient-5">
+            <stop stop-color="#00D5FF" offset="0%"></stop>
+            <stop stop-color="#00D5FF" stop-opacity="0.43550363" offset="31.344567%"></stop>
+            <stop stop-color="#00D5FF" stop-opacity="0.213979613" offset="65.8470286%"></stop>
+            <stop stop-color="#00D5FF" stop-opacity="0" offset="100%"></stop>
+        </radialGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="125.90285%" id="linearGradient-6">
+            <stop stop-color="#B6E9F0" offset="0%"></stop>
+            <stop stop-color="#82EBFB" offset="0%"></stop>
+            <stop stop-color="#B6E9F0" stop-opacity="0.158922193" offset="4.72093265%"></stop>
+            <stop stop-color="#B6E9F0" stop-opacity="0" offset="10.7078758%"></stop>
+            <stop stop-color="#B6E9F0" stop-opacity="0" offset="57.2522021%"></stop>
+            <stop stop-color="#B6E9F0" stop-opacity="0.407796956" offset="86.4993182%"></stop>
+            <stop stop-color="#B6E9F0" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-7" cx="53" cy="53" r="49"></circle>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="饼图圆" transform="translate(-1345.000000, -218.000000)">
+            <g id="编组-8" transform="translate(1271.000000, 116.000000)">
+                <g id="编组-5" transform="translate(8.791847, 34.791847)">
+                    <g id="编组-18" transform="translate(65.208153, 67.208153)">
+                        <g id="椭圆形" fill="black" fill-opacity="1">
+                            <use filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        </g>
+                        <circle id="椭圆形" fill="url(#radialGradient-3)" opacity="0.229027158" cx="53" cy="53" r="53"></circle>
+                        <g id="椭圆形备份" opacity="0.400111607">
+                            <use fill="url(#radialGradient-4)" xlink:href="#path-7"></use>
+                            <circle stroke="url(#linearGradient-6)" stroke-width="1" stroke-linejoin="square" fill="url(#radialGradient-5)" cx="53" cy="53" r="48.5"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -127,7 +127,7 @@ const setOption = () => {
                     show: barProps.showLabel,
                     position: 'top',
                     backgroundColor: barProps.showLabelStyle ? 'rgba(216,240,255,0.10)' : 'none',
-                    padding: [0, -10, -1, -10],
+                    padding: [0, -10, 0, -10],
                     borderRadius: [5],
                     formatter: (params) => {
                         return barProps.showLabelStyle
@@ -197,7 +197,7 @@ const setOption = () => {
                 show: barProps.showLabel,
                 position: 'top',
                 backgroundColor: barProps.showLabelStyle ? 'rgba(216,240,255,0.10)' : 'none',
-                padding: [0, -10, -1, -10],
+                padding: [0, -10, 0, -10],
                 borderRadius: [5],
                 formatter: (params) => {
                     return barProps.showLabelStyle

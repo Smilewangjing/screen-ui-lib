@@ -1,6 +1,6 @@
 <template>
-    <div class="bar-host">
-        <div class="bar">
+    <el-row :gutter="20">
+        <el-col :span="12" class="bar">
             <s-bar
                 :data="[10, 20, 40, 60, 80]"
                 :category="['断网', '断电', '非法操作', '钥匙开门', '非法人员']"
@@ -8,8 +8,8 @@
                 :rect-bar-width="24"
                 :showRect="true"
             ></s-bar>
-        </div>
-        <div class="bar">
+        </el-col>
+        <el-col :span="12" class="bar">
             <s-bar
                 :data="[10, 20, 40, 60, 95]"
                 :category="['断网', '断电', '非法操作', '钥匙开门', '非法人员']"
@@ -19,8 +19,8 @@
                 :barWidth="24"
                 :rect-bar-width="24"
             ></s-bar>
-        </div>
-        <div class="bar">
+        </el-col>
+        <el-col :span="12" class="bar">
             <s-double-bar
                 :data="[
                     { name: '分类1', value: [10, 20, 40, 60, 80] },
@@ -29,9 +29,9 @@
                 :category="['断网', '断电', '非法操作', '钥匙开门', '非法人员']"
                 :showShadow="true"
                 :showLabel="true"
-            ></s-double-bar>
-        </div>
-        <div class="bar">
+            ></s-double-bar
+        ></el-col>
+        <el-col :span="12" class="bar">
             <s-double-bar
                 :data="[
                     { name: '分类1', value: [10, 20, 40, 60, 80] },
@@ -41,11 +41,9 @@
                 :showShadow="true"
                 :showLabel="true"
                 :showRect="true"
-            ></s-double-bar>
-        </div>
-
-        <div class="bar">
-            <!-- TODO：末尾圆点 -->
+            ></s-double-bar
+        ></el-col>
+        <el-col :span="12" class="bar">
             <s-bar
                 :data="[10, 20, 40, 60, 80]"
                 :category="['断网', '断电', '非法操作', '钥匙开门', '非法人员']"
@@ -55,9 +53,8 @@
                 :barBorderRadius="[3, 3, 0, 0]"
                 :showSymbol="true"
             ></s-bar>
-        </div>
-        <div class="bar">
-            <!-- TODO：末尾圆点 -->
+        </el-col>
+        <el-col :span="12" class="bar">
             <s-bar
                 :data="[10, 20, 40, 60, 80]"
                 :category="['断网', '断电', '非法操作', '钥匙开门', '非法人员']"
@@ -67,8 +64,8 @@
                 :showSymbol="true"
                 :disbledEmphasis="true"
             ></s-bar>
-        </div>
-        <div class="bar">
+        </el-col>
+        <el-col :span="12" class="bar">
             <s-bar
                 :data="[10, 20, 50, 60, 80]"
                 :category="['断网', '断电', '非法操作', '钥匙开门', '非法人员']"
@@ -76,16 +73,16 @@
                 :showLabel="true"
                 :splitBar="true"
             ></s-bar>
-        </div>
-        <div class="bar">
+        </el-col>
+        <el-col :span="12" class="bar">
             <s-prism-bar-3D
                 :data="[10, 20, 40, 60, 80]"
                 :category="['断网', '断电', '非法操作', '钥匙开门', '非法人员']"
                 :showBar3D="true"
                 :showLabel="true"
             ></s-prism-bar-3D>
-        </div>
-        <div class="bar">
+        </el-col>
+        <el-col :span="12" class="bar">
             <s-double-bar
                 :data="[
                     { name: '分类1', value: [10, 20, 40, 60, 80] },
@@ -96,8 +93,8 @@
                 :showTriangleBar="true"
                 :bgBarWidth="null"
             ></s-double-bar>
-        </div>
-        <div class="bar">
+        </el-col>
+        <el-col :span="12" class="bar">
             <s-bar
                 :data="[10, 20, 50, 60, 80]"
                 :category="['断网', '断电', '非法操作', '钥匙开门', '非法人员']"
@@ -108,8 +105,8 @@
                 :rectBarWidth="24"
                 :theme="{ customPictorialBar: { color: 'yellow' } }"
             ></s-bar>
-        </div>
-        <div class="bar">
+        </el-col>
+        <el-col :span="12" class="bar">
             <s-double-bar
                 :data="[
                     { name: '分类1', value: [10, 20, 40, 60, 80] },
@@ -121,8 +118,8 @@
                 :barWidth="24"
                 :rectBarWidth="24"
             ></s-double-bar>
-        </div>
-        <div class="bar">
+        </el-col>
+        <el-col :span="12" class="bar">
             <s-biax-bar
                 :category="['断网', '断电', '非法操作', '钥匙开门', '非法人员']"
                 :data="[
@@ -133,8 +130,8 @@
                 :barWidth="8"
                 :barBorderRadius="[4, 4, 0, 0]"
             ></s-biax-bar>
-        </div>
-        <div class="bar">
+        </el-col>
+        <el-col :span="12" class="bar">
             <s-circular-bar-3D
                 :data="[10, 20, 40, 60, 80]"
                 :category="['断网', '断电', '非法操作', '钥匙开门', '非法人员']"
@@ -142,8 +139,8 @@
                 :showLabel="true"
                 :showCircle3D="true"
             ></s-circular-bar-3D>
-        </div>
-    </div>
+        </el-col>
+    </el-row>
 </template>
 
 <script setup lang="ts"></script>
@@ -153,8 +150,6 @@
     height: 100%;
 }
 .bar {
-    display: inline-block;
-    width: 50%;
     height: 300px;
 }
 </style>

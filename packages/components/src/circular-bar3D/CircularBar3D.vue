@@ -23,18 +23,22 @@ type BarProps = {
     barWidth?: number;
     showLabelStyle?: boolean;
     theme?: object;
-    showSplitLine?: boolean;
-    showAxisLine?: boolean;
+    showYSplitLine?: boolean;
+    showXAxisLine?: boolean;
     showYaxisLabel?: boolean;
+    showXAxisLabel?: boolean;
+    disbledTrigger?: boolean;
 };
 
 const barProps = withDefaults(defineProps<BarProps>(), {
     barWidth: 16,
     rectBarWidth: 16,
-    showSplitLine: false,
-    showYaxisLabel: true,
-    showAxisLine: false,
-    barBorderRadius: () => [0, 0, 0, 0]
+    showYSplitLine: false,
+    showXSplitLine: false,
+    showYaxisLabel: false,
+    showYAxisLabel: false,
+    showXAxisLabel: true,
+    disbledTrigger: true
 });
 
 const theme = computed(() => {
@@ -51,7 +55,7 @@ const setOption = () => {
         }));
     const option = {
         tooltip: {
-            trigger: 'axis',
+            trigger: !barProps.disbledTrigger ? 'axis' : null,
             formatter: '{b}: {c}',
             confine: true,
             axisPointer: {
@@ -76,10 +80,13 @@ const setOption = () => {
             {
                 type: 'category',
                 axisLabel: {
-                    show: false
+                    show: barProps.showXAxisLabel
                 },
                 axisLine: {
-                    show: barProps.showAxisLine
+                    show: barProps.showXAxisLine
+                },
+                axisTick: {
+                    show: false
                 },
                 data: barProps.category
             },
@@ -107,16 +114,16 @@ const setOption = () => {
             name: barProps.yAxisName,
             type: 'value',
             axisLine: {
-                show: false
+                show: barProps.showXAxisLine
             },
             axisLabel: {
-                show: barProps.showYaxisLabel,
+                show: barProps.showYAxisLabel,
                 formatter: (value: number) => {
                     return numFormat(value);
                 }
             },
             splitLine: {
-                show: barProps.showSplitLine,
+                show: barProps.showYSplitLine,
                 lineStyle: {
                     type: 'dashed'
                 }

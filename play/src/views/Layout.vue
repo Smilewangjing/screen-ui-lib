@@ -75,4 +75,7 @@ watch(
     height: 100%;
     background: #545c64;
 }
+.el-menu {
+    border-right: none;
+}
 </style>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="222px" height="222px" viewBox="0 0 222 222" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 17</title>
+    <defs>
+        <linearGradient x1="50%" y1="8.24696322%" x2="50%" y2="88.7340742%" id="linearGradient-1">
+            <stop stop-color="#054D6C" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#05456C" offset="50.8713942%"></stop>
+            <stop stop-color="#054D6C" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="28.8370472%" x2="50%" y2="69.3026634%" id="linearGradient-2">
+            <stop stop-color="#10849D" stop-opacity="0" offset="0.532670455%"></stop>
+            <stop stop-color="#3682DC" offset="51.2491167%"></stop>
+            <stop stop-color="#10849D" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-3" cx="110" cy="110" r="105"></circle>
+        <linearGradient x1="50%" y1="22.5951599%" x2="50%" y2="77.5353675%" id="linearGradient-4">
+            <stop stop-color="#A6CEFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#A6CEFF" stop-opacity="0.5" offset="51.2491167%"></stop>
+            <stop stop-color="#A6CEFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <path d="M110,210 C165.228475,210 210,165.228475 210,110 C210,54.771525 165.228475,10 110,10 C54.771525,10 10,54.771525 10,110 C10,165.228475 54.771525,210 110,210 Z" id="path-5"></path>
+        <mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="200" height="200" fill="white">
+            <use xlink:href="#path-5"></use>
+        </mask>
+        <linearGradient x1="50%" y1="22.5951599%" x2="50%" y2="77.5353675%" id="linearGradient-7">
+            <stop stop-color="#A6CEFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#A6CEFF" stop-opacity="0.3" offset="51.2491167%"></stop>
+            <stop stop-color="#A6CEFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="饼图圆" transform="translate(-1289.000000, -160.000000)">
+            <g id="编组-8" transform="translate(1271.000000, 116.000000)">
+                <g id="编组-5" transform="translate(8.791847, 34.791847)">
+                    <g id="编组-17" transform="translate(10.208153, 10.208153)">
+                        <g id="椭圆形" opacity="0.8">
+                            <use stroke="url(#linearGradient-1)" stroke-width="3" xlink:href="#path-3"></use>
+                            <use stroke="url(#linearGradient-2)" stroke-width="1" xlink:href="#path-3"></use>
+                        </g>
+                        <use id="椭圆形" stroke="url(#linearGradient-4)" mask="url(#mask-6)" stroke-width="6" stroke-dasharray="0,6" xlink:href="#path-5"></use>
+                        <circle id="椭圆形" stroke="url(#linearGradient-7)" cx="110" cy="110" r="110"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

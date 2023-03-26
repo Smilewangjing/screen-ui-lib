@@ -4,7 +4,6 @@
 
 <script lang="ts" setup>
 import './style/index.scss';
-import 'echarts';
 
 import { numFormat } from '@ahsdata-ui/utils';
 

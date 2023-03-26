@@ -22,10 +22,10 @@ export function useEchart(rendererEchart = 'svg') {
         echartsInstance?.resize();
     };
 
-    const initEchart = (option: EChartsOption) => {
+    const initEchart = (option: EChartsOption, theme?: object) => {
         if (echartsRef.value) {
             removeChart();
-            const echart = echarts.init(echartsRef.value, themeJson, {
+            const echart = echarts.init(echartsRef.value, theme || themeJson, {
                 renderer: rendererEchart as any
             });
             echart?.setOption(option, true);
@@ -52,6 +52,26 @@ export function useEchart(rendererEchart = 'svg') {
         }
     });
 
+    const calculationTotal = (data: { name: string; value: number }[]) => {
+        return data?.reduce((prev, next) => {
+            // eslint-disable-next-line radix
+            return prev + parseInt(next.value as unknown as string, 0);
+        }, 0);
+    };
+
+    const covertData = (data: { name: string; value: number }[]) => {
+        const total = calculationTotal(data);
+        return data.map((item) => {
+            const percentNum = Number((((item.value as number) / total) * 100).toFixed(2));
+            return {
+                ...item,
+                percentNum,
+                percent: `${percentNum}%`,
+                total
+            };
+        });
+    };
+
     onUnmounted(() => {
         // eslint-disable-next-line no-unused-expressions
         resizeObserverInstance.value && resizeObserverInstance.value.disconnect();
@@ -62,6 +82,7 @@ export function useEchart(rendererEchart = 'svg') {
         themeJson,
         initEchart,
         echartsRef,
-        removeChart
+        removeChart,
+        covertData
     };
 }

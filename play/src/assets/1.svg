@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="124px" height="102px" viewBox="0 0 124 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 16</title>
+    <defs>
+        <linearGradient x1="50.0125389%" y1="9.34985331%" x2="50%" y2="93.3457293%" id="linearGradient-1">
+            <stop stop-color="#237BC6" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#237BC6" stop-opacity="0.3" offset="32.0175918%"></stop>
+            <stop stop-color="#237BC6" stop-opacity="0.3" offset="64.6388767%"></stop>
+            <stop stop-color="#237BC6" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="22.5951599%" x2="50%" y2="77.5353675%" id="linearGradient-2">
+            <stop stop-color="#A6CEFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#A6CEFF" stop-opacity="0.3" offset="51.2491167%"></stop>
+            <stop stop-color="#A6CEFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="22.5951599%" x2="50%" y2="77.5353675%" id="linearGradient-3">
+            <stop stop-color="#A6CEFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#A6CEFF" stop-opacity="0.5" offset="51.2491167%"></stop>
+            <stop stop-color="#A6CEFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <path d="M61,116 C91.3756612,116 116,91.3756612 116,61 C116,30.6243388 91.3756612,6 61,6 C30.6243388,6 6,30.6243388 6,61 C6,91.3756612 30.6243388,116 61,116 Z" id="path-4"></path>
+        <mask id="mask-5" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="110" height="110" fill="white">
+            <use xlink:href="#path-4"></use>
+        </mask>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="饼图圆" transform="translate(-753.000000, -214.000000)">
+            <g id="编组-12" transform="translate(695.762499, 108.000661)">
+                <g id="编组-16" transform="translate(58.549640, 94.311479)">
+                    <circle id="椭圆形" stroke="url(#linearGradient-2)" fill-opacity="0.8" fill="url(#linearGradient-1)" cx="61" cy="61" r="61"></circle>
+                    <use id="椭圆形" stroke="url(#linearGradient-3)" mask="url(#mask-5)" stroke-width="6" stroke-dasharray="0,6" xlink:href="#path-4"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

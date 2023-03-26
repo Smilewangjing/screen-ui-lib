@@ -2,9 +2,9 @@
     "color": [
         "#1978E5",
         "#05CFF7",
-        "#C8C55B",
-        "#C8C55B",
-        "#A7B0B3",
+        "#EAB966",
+        "#60B45E",
+        "#BECDD0",
         "#3ba272",
         "#fc8452",
         "#9a60b4",
@@ -259,6 +259,20 @@
     "tooltip": {
         "textStyle": {
             "color": "#D0DEEE"
+        },
+        "axisPointer": {
+            "type": "shadow",
+            "shadowStyle": {
+                "color": "rgba(103,166,233,0.12)"
+            }
+        },
+        "backgroundColor": "rgba(104,155,254,0.04)",
+        "extraCssText": "box-shadow:0 4px 40px 0 rgba(15,19,26,0.20);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:3px;",
+        "borderWidth": 0
+    },
+    "pie": {
+        "label": {
+            "color": "#fff"
         }
     }
 }
