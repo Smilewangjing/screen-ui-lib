@@ -83,6 +83,7 @@ export function useEchart(rendererEchart = 'svg') {
         initEchart,
         echartsRef,
         removeChart,
-        covertData
+        covertData,
+        calculationTotal
     };
 }

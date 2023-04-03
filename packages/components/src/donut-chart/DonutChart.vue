@@ -10,7 +10,7 @@ import { numFormat } from '@ahsdata-ui/utils';
 import { onMounted, computed } from 'vue';
 
 import themeJson from '../common/chartTheme.json';
-import type { EChartsOption, PieSeriesOption, SeriesOption } from 'echarts';
+import type { EChartsOption, GaugeSeriesOption, PieSeriesOption, SeriesOption } from 'echarts';
 import { useEchart } from '../common/hooks/useEchart';
 
 defineOptions({ name: 's-donut-bar' });
@@ -23,77 +23,126 @@ type DonutChartProps = {
         center: string[];
     }[];
     rowNum: number;
+    borderFlag?: boolean;
     theme?: object;
 };
 const donutChartProps = withDefaults(defineProps<DonutChartProps>(), {
     rowNum: 3
 });
 
+const theme = computed(() => {
+    return Object.assign(themeJson, donutChartProps.theme);
+});
+
 const getSeries = () => {
     const centerY = 70; // 原点y轴的单位距离
     const centerYOffset = 5; // 原点偏移
     const centerX = 100 / donutChartProps.rowNum; // 原点x轴的单位距离
-    const series = donutChartProps.data.map((item, index) => {
-        const center = [
-            centerX * (index % donutChartProps.rowNum) + centerX / 2 + '%',
-            donutChartProps.data?.length <= donutChartProps.rowNum
-                ? '50%'
-                : centerY * Math.floor(index / donutChartProps.rowNum) +
-                  centerY / 2 -
-                  centerYOffset +
-                  '%'
-        ];
-        return {
-            type: 'pie',
-            clockwise: false,
-            radius: ['40%', '50%'],
-            itemStyle: {
-                shadowBlur: 0,
-                label: {
-                    show: false
-                },
-                labelLine: {
-                    show: false
-                }
-            },
-            center: center,
-            data: [
+    const series = donutChartProps.data
+        .map((item, index) => {
+            const center = [
+                centerX * (index % donutChartProps.rowNum) + centerX / 2 + '%',
+                donutChartProps.data?.length <= donutChartProps.rowNum
+                    ? '50%'
+                    : centerY * Math.floor(index / donutChartProps.rowNum) +
+                      centerY / 2 -
+                      centerYOffset +
+                      '%'
+            ];
+            const series: SeriesOption[] = [
                 {
-                    name: item.name,
-                    value: item.value,
-                    label: {
-                        formatter: function (params: any) {
-                            return `{value|${params.value}}\n{name|${params.data.name}}`;
+                    type: 'pie',
+                    clockwise: false,
+                    radius: ['40%', '50%'],
+                    itemStyle: {
+                        shadowBlur: 0,
+                        label: {
+                            show: false
                         },
-                        rich: {
-                            value: {
-                                fontSize: 14
-                            },
-                            name: {
-                                fontSize: 14,
-                                padding: [5, 0, 0, 0]
+                        labelLine: {
+                            show: false
+                        }
+                    },
+                    center: center,
+                    data: [
+                        {
+                            name: item.name,
+                            value: item.value,
+                            label: {
+                                formatter: function (params: any) {
+                                    return `{value|${params.value}}\n{name|${params.data.name}}`;
+                                },
+                                rich: {
+                                    value: {
+                                        fontSize: 14
+                                    },
+                                    name: {
+                                        fontSize: 14,
+                                        padding: [5, 0, 0, 0]
+                                    }
+                                },
+                                position: 'center',
+                                show: true
                             }
                         },
-                        position: 'center',
-                        show: true
-                    }
-                },
-                {
-                    value: 100 - Number(item.value),
-                    name: 'invisible',
-                    label: {
+                        {
+                            value: 100 - Number(item.value),
+                            name: 'invisible',
+                            label: {
+                                show: false
+                            },
+                            emphasis: {
+                                disabled: true
+                            },
+                            itemStyle: {
+                                color: donutChartProps.borderFlag
+                                    ? 'transparent'
+                                    : theme.value?.DonutChart?.border?.color
+                            }
+                        }
+                    ]
+                } as PieSeriesOption
+            ];
+            if (donutChartProps.borderFlag) {
+                series.push({
+                    name: '整数刻度',
+                    type: 'gauge',
+                    radius: '55%',
+                    center: center,
+                    startAngle: 90,
+                    endAngle: -269.9,
+                    splitNumber: 4,
+                    min: 0,
+                    max: 100,
+                    hoverAnimation: false,
+                    axisTick: {
                         show: false
                     },
-                    emphasis: {
-                        disabled: true
+                    splitLine: {
+                        length: -10,
+                        distance: 0,
+                        lineStyle: {
+                            width: 1,
+                            color: theme.value?.DonutChart?.border?.color
+                        }
                     },
-                    itemStyle: {
-                        color: '#ccc'
+                    axisLabel: {
+                        show: false
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            width: 1,
+                            color: [[1, theme.value?.DonutChart?.border?.color]]
+                        }
+                    },
+                    detail: {
+                        show: true
                     }
-                }
-            ]
-        } as PieSeriesOption;
-    });
+                } as GaugeSeriesOption);
+            }
+            return series;
+        })
+        .flat();
     return series as SeriesOption[];
 };
 
@@ -112,10 +161,6 @@ const getOption = () => {
 };
 
 const { initEchart, echartsRef } = useEchart();
-
-const theme = computed(() => {
-    return Object.assign(themeJson, donutChartProps.theme);
-});
 
 onMounted(() => {
     initEchart(getOption(), theme.value);

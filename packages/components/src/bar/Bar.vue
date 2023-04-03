@@ -338,6 +338,6 @@ const setOption = () => {
 };
 
 onMounted(() => {
-    initEchart(setOption());
+    initEchart(setOption(), theme.value);
 });
 </script>

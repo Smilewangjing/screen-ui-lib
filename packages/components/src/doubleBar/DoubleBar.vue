@@ -35,6 +35,7 @@ type BarProps = {
     }[];
     isHeadUp?: boolean;
     theme?: object;
+    legendData?: any[];
 };
 const barProps = withDefaults(defineProps<BarProps>(), {
     barWidth: 10,
@@ -146,15 +147,8 @@ const getOption = () => {
         },
         legend: {
             type: 'scroll',
-            right: 0
-            // data: barProps.data.map((item, index) => {
-            //     return {
-            //         name: item.name,
-            //         itemStyle: {
-            //             color: theme.value.color[index]
-            //         }
-            //     };
-            // })
+            right: 0,
+            data: barProps?.legendData
         },
         xAxis: [
             {
@@ -203,6 +197,6 @@ const getOption = () => {
 const { initEchart, echartsRef } = useEchart();
 
 onMounted(() => {
-    initEchart(getOption());
+    initEchart(getOption(), theme.value);
 });
 </script>

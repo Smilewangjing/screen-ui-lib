@@ -15,7 +15,6 @@ import type {
     PieSeriesOption
 } from 'echarts';
 import { useEchart } from '../common/hooks/useEchart';
-import * as echarts from 'echarts';
 
 defineOptions({ name: 's-pie' });
 
@@ -162,20 +161,6 @@ const setOption = () => {
 };
 
 onMounted(() => {
-    const echartsIn = echarts.init(echartsRef.value);
-    echartsIn.setOption(setOption());
-    // const echartsInstance = initEchart(setOption());
-    // if (pieProps.labelFormatter && pieProps.titleFormatter) {
-    //     echartsInstance.on('mouseover', { seriesIndex: 0, type: 'pie' }, function () {
-    //         const option = setOption();
-    //         option.series[0].label.show = false;
-    //         echartsInstance?.setOption(option);
-    //     });
-    //     echartsInstance.on('mouseout', { seriesIndex: 0, type: 'pie' }, function () {
-    //         const option = setOption();
-    //         option.series[0].label.show = true;
-    //         echartsInstance?.setOption(option);
-    //     });
-    // }
+    initEchart(setOption(), theme.value);
 });
 </script>
