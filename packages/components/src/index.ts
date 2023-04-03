@@ -7,4 +7,3 @@ export * from './circular-bar3D';
 export * from './pie';
 export * from './donut-chart';
 export * from './scatter-pie';
-export * from './gauge-pie';
